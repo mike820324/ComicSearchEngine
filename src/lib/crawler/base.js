@@ -6,6 +6,9 @@ import whacko from 'whacko';
 // encode normalize
 import charset from 'charset';
 import iconv from 'iconv-lite';
+import Opencc from 'opencc';
+const opencc = new Opencc('s2tw.json');
+
 
 import Promise from 'bluebird';
 
@@ -38,7 +41,7 @@ class baseCrawler {
 		let encoding = charset(response.headers, response.body);
 		if(encoding === null) encoding = 'utf8';
 
-		let utf8Body = iconv.decode(response.body, encoding);
+		let utf8Body = opencc.convertSync(iconv.decode(response.body, encoding));
 		let $ = whacko.load(utf8Body, {encodeEntities:false});
 		return $;
 	}

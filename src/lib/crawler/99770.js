@@ -1,7 +1,3 @@
-// encode normalize
-//var Opencc = require('opencc');
-//var opencc = new Opencc('s2tw.json');
-
 import baseCrawler from './base';
 
 class nine9770Crawler extends baseCrawler {

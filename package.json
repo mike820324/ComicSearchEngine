@@ -23,6 +23,7 @@
     "levelup": "^0.19.0",
     "map-reduce": "^6.0.2",
     "node-segment": "0.0.2",
+    "opencc": "git://github.com/BYVoid/OpenCC",
     "request": "^2.53.0",
     "whacko": "^0.17.3"
   },
