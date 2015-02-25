@@ -15,7 +15,7 @@ var testComicvip = () => {
 		if(err) console.log(err);
 		else comicIndexer.add('comicvip', comicList);
 	});
-}
+};
 
 var test99770 = () => {
 	let testCrawler = new nine9770Crawler(4000);
@@ -25,7 +25,7 @@ var test99770 = () => {
 		else comicIndexer.add('99770', comicList);
 	});
 	
-}
+};
 
 var test99comic = () => {
 	let testCrawler = new nineNineComicCrawler(4000);
@@ -35,7 +35,7 @@ var test99comic = () => {
 		else comicIndexer.add('99comic', comicList);
 	});
 	
-}
+};
 
 var testdmeden = () => {
 	let testCrawler = new dmedenCrawler(4000);
@@ -48,10 +48,17 @@ var testdmeden = () => {
 		//else comicIndexer.add('dmeden', comicList);
 	});
 	
-}
+};
+
+var testSearch = (type, searchTerm) => {
+	comicIndexer.search(type, searchTerm, (err, result) =>{
+		console.log(result);
+	});
+};
 
 //testComicvip();
 //test99comic();
 //test99770();
-testdmeden();
+//testdmeden();
+testSearch('all', '網球');
 
