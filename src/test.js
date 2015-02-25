@@ -3,7 +3,9 @@
 import comicvipCrawler from './lib/crawler/comicvip';
 import nineNineComicCrawler from './lib/crawler/99comic';
 import nine9770Crawler from './lib/crawler/99770';
+import Indexer from './lib/indexer';
 
+let comicIndexer = new Indexer('./newdb');
 
 
 var testComicvip = () => {
@@ -11,7 +13,7 @@ var testComicvip = () => {
 
 	testCrawler.start((err, comicList) => {
 		if(err) console.log(err);
-		console.log(comicList[1000]);
+		else comicIndexer.add('comicvip', comicList);
 	});
 }
 
@@ -20,11 +22,7 @@ var test99770 = () => {
 
 	testCrawler.start((err, comicList) => {
 		if(err) console.log(err);
-		else {
-			for(let comic of comicList) {
-				console.log(comic.name);
-			}
-		}
+		else comicIndexer.add('99770', comicList);
 	});
 	
 }
@@ -34,13 +32,11 @@ var test99comic = () => {
 
 	testCrawler.start((err, comicList) => {
 		if(err) console.log(err);
-		//for(let comic of comicList) {
-		//	console.log(comic.name);
-		//}
+		else comicIndexer.add('99comic', comicList);
 	});
 	
 }
 
-//testComicvip();
-//test99comic();
-test99770();
+testComicvip();
+test99comic();
+//test99770();

@@ -1,0 +1,6 @@
+db/
+newDb/
+dist/
+node_modules/
+**.swp
+

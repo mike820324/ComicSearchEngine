@@ -37,5 +37,9 @@
     "gulp-flowtype": "^0.4.4",
     "gulp-react": "^2.0.0",
     "level-dump": "^0.4.0"
+  },
+  "repository": {
+	"type": "git",
+	"url": "https://github.com/mike820324/ComicSearchEngine.git"
   }
 }
