@@ -10,6 +10,7 @@ class comicIndexer {
 		this.comicDb['99770'] = this.db.sublevel('99770');
 		this.comicDb['comicvip'] = this.db.sublevel('comicvip');
 		this.comicDb['99comic'] = this.db.sublevel('99comic');
+		this.comicDb['dmeden'] = this.db.sublevel('dmeden');
 	}
 
 
