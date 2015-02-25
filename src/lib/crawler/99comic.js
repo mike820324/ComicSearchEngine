@@ -1,5 +1,4 @@
 import baseCrawler from './base';
-import Promise from 'bluebird';
 
 class nineNineComicCrawler extends baseCrawler {
 	constructor(delayTime) {
