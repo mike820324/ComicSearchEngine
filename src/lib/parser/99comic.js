@@ -1,10 +1,6 @@
-import baseCrawler from './base';
+import parserBase from './base';
 
-class nineNineComicCrawler extends baseCrawler {
-	constructor(delayTime) {
-		super('http://www.99comic.com/lists/', delayTime);
-	}
-
+class parser99comic extends parserBase {
 	getPageNum($) {
 		const cssPath = 'body > div > div > div.imainarea > div > div > div.i-hdline > div.hdbox.hd-comiclist > div > div:nth-child(1) > span > b:nth-child(3)';
 		let element = $(cssPath);
@@ -47,5 +43,5 @@ class nineNineComicCrawler extends baseCrawler {
 	}
 }
 
-module.exports = nineNineComicCrawler;
+module.exports = new parser99comic();
 

@@ -1,10 +1,6 @@
-import baseCrawler from './base';
+import parserBase from './base';
 
-class dmedenCrawler extends baseCrawler {
-	constructor(delayTime) {
-		super('http://www.dmeden.com/comic/', delayTime);
-	}
-
+class parserDmeden extends parserBase {
 	getPageNum($) {
 		const selector = 'div#iComicPC1 b';
 		let element = $(selector);
@@ -32,12 +28,13 @@ class dmedenCrawler extends baseCrawler {
 
 	getNextPage($) {
 		const selector = 'span.cPageChangeLink a';
+		const baseUrl = 'http://www.dmeden.com/comic/';
 
 		let elements = $(selector);
 
 		for(let i = 0; i < elements.length ; i++) {
 			if(elements[i].children[0].data.indexOf('下一') !== -1) {
-					return this.baseUrl + elements[i].attribs.href;
+					return baseUrl + elements[i].attribs.href;
 			}
 		}
 
@@ -45,4 +42,4 @@ class dmedenCrawler extends baseCrawler {
 	}
 }
 
-module.exports = dmedenCrawler;
+module.exports = new parserDmeden();

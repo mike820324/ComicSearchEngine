@@ -3,19 +3,42 @@ import Request from 'request';
 // html parsing
 import whacko from 'whacko';
 
+import Promise from 'bluebird';
+
+// currently supported comic parser
+import parserComicvip from './parser/comicvip';
+import parserDmeden from './parser/dmeden';
+import parser99comic from './parser/99comic';
+import parser99770 from './parser/99770';
+
 // encode normalize
 import charset from 'charset';
 import iconv from 'iconv-lite';
 import Opencc from 'opencc';
-const opencc = new Opencc('s2tw.json');
+const opencc = new Opencc('tw2s.json');
 
 
-import Promise from 'bluebird';
 
 // do not use this class directly, extend it
-class baseCrawler {
+class crawler {
 	constructor(baseUrl, delayTime){
 		this.baseUrl = baseUrl;
+		
+		// @fixme
+		// should use a better pattern instead of copy and paste
+		if(this.baseUrl.indexOf('comicvip.com') !== -1) 
+			this.parser = parserComicvip;
+
+		else if(this.baseUrl.indexOf('dmeden.com') !== -1) 
+			this.parser = parserDmeden;
+
+		else if(this.baseUrl.indexOf('99comic.com') !== -1)
+			this.parser = parser99comic;
+		
+		else if(this.baseUrl.indexOf('99770.cc') !== -1) 
+			this.parser = parser99770;
+		
+
 		this.urlList = [];
 
 		if(delayTime)
@@ -59,9 +82,13 @@ class baseCrawler {
 			this.request(url)
 			.then(response => {
 				let $ = this.parseHtml(response);
-				let result = this.getElement($);
+
+				// get the content 
+				let result = this.parser.getElement($);
 				cb(null, result);
-				this.urlList.push(this.getNextPage($));
+				
+				// get next url and wait
+				this.urlList.push(this.parser.getNextPage($));
 			});
 		}
 	}
@@ -82,19 +109,6 @@ class baseCrawler {
 		console.log('stop crawler');
 		clearInterval(this.limiter);
 	}
-
-	getPageNum($) {
-		throw new Error('not implements');
-	}
-	
-	getNextPage($) {
-		throw new Error('not implements');
-	}
-
-	getElement($) {
-		throw new Error('not implements');
-	}
-
 }
 
-module.exports = baseCrawler;
+module.exports = crawler;

@@ -1,10 +1,6 @@
-import baseCrawler from './base';
+import parserBase from './base';
 
-class nine9770Crawler extends baseCrawler {
-	constructor(delayTime) {
-		super('http://mh.99770.cc/comiclist/0/', delayTime);
-	}
-
+class parser99770 extends parserBase {
 	getElement($) {
 		const cssSelector = 'body > div.cContent > div.cPubRight > div.cc2 > div.cComicList li > a';
 		let elements =  $(cssSelector);
@@ -48,4 +44,4 @@ class nine9770Crawler extends baseCrawler {
 	}
 }
 
-module.exports = nine9770Crawler;
+module.exports = new parser99770();

@@ -1,15 +1,19 @@
-import comicvipCrawler from './lib/crawler/comicvip';
-import nineNineComicCrawler from './lib/crawler/99comic';
-import nine9770Crawler from './lib/crawler/99770';
-import dmedenCrawler from './lib/crawler/dmeden';
+import crawler from './lib/crawler';
+
+import Opencc from 'opencc';
+const opencc = new Opencc('tw2s.json');
 
 import Indexer from './lib/indexer';
+import Segment from 'node-segment';
+
+let segment = new Segment.Segment();
+segment.useDefault();
 
 let comicIndexer = new Indexer('./newdb');
 
 
 var testComicvip = () => {
-	let testCrawler = new comicvipCrawler();
+	let testCrawler = new crawler('http://www.comicvip.com/comic/all.html', 0);
 
 	testCrawler.start((err, comicList) => {
 		if(err) console.log(err);
@@ -18,7 +22,8 @@ var testComicvip = () => {
 };
 
 var test99770 = () => {
-	let testCrawler = new nine9770Crawler(4000);
+'http://mh.99770.cc/comiclist/0/'
+	let testCrawler = new crawler('http://mh.99770.cc/comiclist/0', 4000);
 
 	testCrawler.start((err, comicList) => {
 		if(err) console.log(err);
@@ -28,7 +33,7 @@ var test99770 = () => {
 };
 
 var test99comic = () => {
-	let testCrawler = new nineNineComicCrawler(4000);
+	let testCrawler = new crawler('http://www.99comic.com/lists/', 4000);
 
 	testCrawler.start((err, comicList) => {
 		if(err) console.log(err);
@@ -38,27 +43,26 @@ var test99comic = () => {
 };
 
 var testdmeden = () => {
-	let testCrawler = new dmedenCrawler(4000);
+	let testCrawler = new crawler('http://www.dmeden.com/comic/', 4000);
 
 	testCrawler.start((err, comicList) => {
 		if(err) console.log(err);
-		else {
-			console.log(comicList[0].name);
-		}
-		//else comicIndexer.add('dmeden', comicList);
+		else comicIndexer.add('dmeden', comicList);
 	});
 	
 };
 
 var testSearch = (type, searchTerm) => {
 	comicIndexer.search(type, searchTerm, (err, result) =>{
-		console.log(result);
+		for(let comic of result) {
+			console.log(segment.doSegment(opencc.convertSync(comic.name)));
+		}
 	});
 };
 
 //testComicvip();
 //test99comic();
-//test99770();
+test99770();
 //testdmeden();
-testSearch('all', '網球');
+//testSearch('all', '足球');
 

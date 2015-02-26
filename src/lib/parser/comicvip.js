@@ -1,10 +1,6 @@
-import baseCrawler from './base';
+import parserBase from './base';
 
-class comicvipCrawler extends baseCrawler {
-	constructor() {
-		super('http://www.comicvip.com/comic/all.html', 0);
-	}
-
+class parserComicvip extends parserBase {
 	getElement($) {
 		const cssSelector = 'body > table:nth-child(5) > tbody > tr > td:nth-child(3) > table:nth-child(2) > tbody a';
 		const baseUrl = 'www.comicvip.com';
@@ -29,6 +25,6 @@ class comicvipCrawler extends baseCrawler {
 	}
 }
 
-module.exports = comicvipCrawler;
+module.exports = new parserComicvip();
 
 
