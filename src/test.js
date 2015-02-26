@@ -55,7 +55,7 @@ var testSearch = (type, searchTerm) => {
 	comicIndexer.search(type, searchTerm, (err, result) =>{
 		for(let comic of result) {
 			//console.log(segment.doSegment(opencc.convertSync(comic.name)));
-			console.log(comic.name);
+			console.log(comic.name + ' => ' + comic.url);
 		}
 	});
 };
@@ -64,5 +64,5 @@ var testSearch = (type, searchTerm) => {
 //test99comic();
 //test99770();
 //testdmeden();
-//testSearch('all', '足球');
+testSearch('all', '足球');
 
