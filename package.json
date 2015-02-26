@@ -13,7 +13,7 @@
     "iojs",
     "comic"
   ],
-  "author": "micromike",
+  "author": "Rueimin Jiang",
   "license": "MIT",
   "dependencies": {
     "charset": "^1.0.0",
