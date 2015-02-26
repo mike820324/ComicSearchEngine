@@ -55,14 +55,15 @@ var testdmeden = () => {
 var testSearch = (type, searchTerm) => {
 	comicIndexer.search(type, searchTerm, (err, result) =>{
 		for(let comic of result) {
-			console.log(segment.doSegment(opencc.convertSync(comic.name)));
+			//console.log(segment.doSegment(opencc.convertSync(comic.name)));
+			console.log(comic.name);
 		}
 	});
 };
 
 //testComicvip();
 //test99comic();
-test99770();
+//test99770();
 //testdmeden();
 //testSearch('all', '足球');
 
