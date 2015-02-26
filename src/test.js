@@ -22,7 +22,6 @@ var testComicvip = () => {
 };
 
 var test99770 = () => {
-'http://mh.99770.cc/comiclist/0/'
 	let testCrawler = new crawler('http://mh.99770.cc/comiclist/0', 4000);
 
 	testCrawler.start((err, comicList) => {
