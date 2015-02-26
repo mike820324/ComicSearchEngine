@@ -59,28 +59,50 @@ class crawler {
 		return $;
 	}
 	
-	
 	// crawl one page
 	// get the data
-	crawl(cb) {
-		let url = this.urlList.pop();
+	crawl(url, cb) {
+		console.log('crawling ' + url);
+		this.request(url)
+		.then(response => {
+			let $ = this.parseHtml(response);
+			
+			// get the content 
+			let result = this.parser.getElement($);
 
-		if (url === undefined || url === null)  {
-			this.stop();
-		} else {
-			console.log('crawling ' + url);
-			this.request(url)
-			.then(response => {
-				let $ = this.parseHtml(response);
-
-				// get the content 
-				let result = this.parser.getElement($);
+			if(result.length !== 0)
 				cb(null, result);
-				
-				// get next url and wait
-				this.urlList.push(this.parser.getNextPage($));
-			});
-		}
+			
+			else
+			
+			// get next url and wait
+			let nextUrl = this.parser.getNextPage($);
+
+			if (nextUrl === null)  {
+				console.log('end =>' + url);
+			} else {
+				this.limiter = setTimeout(() =>{
+					this.crawl(nextUrl, cb);
+				}, this.delayTime);
+			}
+		})
+		.catch(Error, err => {
+			if(err.code === 'ECONNRESET') {
+				console.log(err + ' => ' + url);
+
+				this.limiter = setTimeout(() =>{
+					this.crawl(url, cb);
+				}, this.delayTime);
+			} else {
+				console.log('uncaught error => ' +  err);
+			}
+		})
+		.catch(TypeError, err =>{
+			
+		})
+		.catch(err => {
+			console.log('uncauge error => ', err);
+		});
 	}
 	
 	// start crawling the page
@@ -89,15 +111,15 @@ class crawler {
 
 		this.urlList.push(this.baseUrl);
 
-		this.limiter = setInterval(()=>{
-			this.crawl(cb);
-		}, this.delayTime);
+		this.limiter = setTimeout(()=>{
+			this.crawl(this.baseUrl, cb);
+		}, 0);
 	}
 
 	// stop crawling
 	stop() {
 		console.log('stop crawler');
-		clearInterval(this.limiter);
+		clearTimeout(this.limiter);
 	}
 }
 
