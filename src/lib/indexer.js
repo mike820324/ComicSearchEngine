@@ -2,6 +2,9 @@ import Levelup from 'levelup';
 import Sublevel from 'level-sublevel';
 import Promise from 'bluebird';
 
+import Opencc from 'opencc';
+let opencc = new Opencc('tw2s.json');
+
 class comicIndexer {
 	constructor(dbPath) {
 		this.db = Sublevel(Levelup(dbPath));
@@ -93,6 +96,7 @@ class comicIndexer {
 	}
 
 	search(type, searchTerm, cb) {
+		searchTerm = opencc.convertSync(searchTerm);
 		if(type !== 'all')
 			this._searchType(type, searchTerm, cb);
 		else
