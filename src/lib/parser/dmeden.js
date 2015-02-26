@@ -37,6 +37,9 @@ class parserDmeden extends parserBase {
 
 		for(let i = 0; i < elements.length ; i++) {
 			if(elements[i].children[0].data.indexOf('下一') !== -1) {
+				if(elements[i].attribs.href === undefined)
+					return null;
+				else
 					return baseUrl + elements[i].attribs.href;
 			}
 		}
