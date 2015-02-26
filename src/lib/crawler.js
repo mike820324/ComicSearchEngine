@@ -5,11 +5,7 @@ import whacko from 'whacko';
 
 import Promise from 'bluebird';
 
-// currently supported comic parser
-import parserComicvip from './parser/comicvip';
-import parserDmeden from './parser/dmeden';
-import parser99comic from './parser/99comic';
-import parser99770 from './parser/99770';
+import Parser from './parser';
 
 // encode normalize
 import charset from 'charset';
@@ -24,20 +20,14 @@ class crawler {
 	constructor(baseUrl, delayTime){
 		this.baseUrl = baseUrl;
 		
-		// @fixme
-		// should use a better pattern instead of copy and paste
-		if(this.baseUrl.indexOf('comicvip.com') !== -1) 
-			this.parser = parserComicvip;
+		for(let parser of Parser.supportParser) {
+			if(this.baseUrl.indexOf(parser.url) !== -1) {
+				this.parser = parser.parser;
+			}
+		}
 
-		else if(this.baseUrl.indexOf('dmeden.com') !== -1) 
-			this.parser = parserDmeden;
-
-		else if(this.baseUrl.indexOf('99comic.com') !== -1)
-			this.parser = parser99comic;
-		
-		else if(this.baseUrl.indexOf('99770.cc') !== -1) 
-			this.parser = parser99770;
-		
+		if(this.parser === undefined) 
+			console.log('not supported');
 
 		this.urlList = [];
 

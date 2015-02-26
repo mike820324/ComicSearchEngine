@@ -1,6 +1,9 @@
 import parserBase from './base';
 
 class parserDmeden extends parserBase {
+	constructor() {
+		super('dmeden', 'dmeden.com');
+	}
 	getPageNum($) {
 		const selector = 'div#iComicPC1 b';
 		let element = $(selector);

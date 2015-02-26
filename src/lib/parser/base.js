@@ -1,4 +1,9 @@
 class parserBase {
+	constructor(name, url) {
+		this.name = name;
+		this.url = url;
+	}
+
 	getElement($) {
 		throw new Error('not implements');
 	}

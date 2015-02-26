@@ -1,6 +1,10 @@
 import parserBase from './base';
 
 class parserComicvip extends parserBase {
+	constructor() {
+		super('Comicvip', 'comicvip.com');
+	}
+
 	getElement($) {
 		const cssSelector = 'body > table:nth-child(5) > tbody > tr > td:nth-child(3) > table:nth-child(2) > tbody a';
 		const baseUrl = 'www.comicvip.com';

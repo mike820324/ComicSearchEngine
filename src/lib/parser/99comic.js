@@ -1,6 +1,9 @@
 import parserBase from './base';
 
 class parser99comic extends parserBase {
+	constructor() {
+		super('99comic', '99comic.com');
+	}
 	getPageNum($) {
 		const cssPath = 'body > div > div > div.imainarea > div > div > div.i-hdline > div.hdbox.hd-comiclist > div > div:nth-child(1) > span > b:nth-child(3)';
 		let element = $(cssPath);

@@ -1,6 +1,10 @@
 import parserBase from './base';
 
 class parser99770 extends parserBase {
+	constructor() {
+		super('99770', '99770.cc');
+	}
+
 	getElement($) {
 		const cssSelector = 'body > div.cContent > div.cPubRight > div.cc2 > div.cComicList li > a';
 		let elements =  $(cssSelector);
