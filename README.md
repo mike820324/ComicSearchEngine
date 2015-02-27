@@ -3,6 +3,11 @@ A simple Comic Search Engine written in nodejs. With a simple crawler, some pars
 
 一個基於 nodejs 的漫畫搜尋引擎。包含了一些簡單的 crawler, parser 以及 indexer。 
 
+# Thanks
+This program is inspired by https://github.com/eleweek/SearchingReddit, 
+a Reddit Search Engine written by Alexander Putilin. 
+Thank you Alexander Putilin, your video helps me alot.
+
 # Why 
   I know, nowadays, there are a lot of search engines out there. You can simply type the comic name on google,
   and it will give you the results that you want. 
@@ -54,7 +59,7 @@ Command Walk Through
 git clone https://github.com/mike820324/ComicSearchEngine.git
 cd ComicSearchEngine
 npm install
-npm run test
+npm run run
 ```
 
 # License
