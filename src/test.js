@@ -4,10 +4,11 @@ import Opencc from 'opencc';
 const opencc = new Opencc('tw2s.json');
 
 import Indexer from './lib/indexer';
-import Segment from 'node-segment';
-
-let segment = new Segment.Segment();
-segment.useDefault();
+import nodejieba from 'nodejieba';
+nodejieba.queryLoadDict("./node_modules/nodejieba/dict/jieba.dict.utf8",
+						"./node_modules/nodejieba/dict/hmm_model.utf8",
+						3,
+						"./node_modules/nodejieba/dict/user.dict.utf8");
 
 let comicIndexer = new Indexer('./newdb');
 
@@ -54,8 +55,8 @@ var testdmeden = () => {
 var testSearch = (type, searchTerm) => {
 	comicIndexer.search(type, searchTerm, (err, result) =>{
 		for(let comic of result) {
-			//console.log(segment.doSegment(opencc.convertSync(comic.name)));
-			console.log(comic.name + ' => ' + comic.url);
+			console.log(nodejieba.queryCutSync(opencc.convertSync(comic.name)));
+			//console.log(comic.name + ' => ' + comic.url);
 		}
 	});
 };
