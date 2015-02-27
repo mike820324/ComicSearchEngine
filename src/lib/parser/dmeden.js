@@ -1,4 +1,5 @@
 import parserBase from './base';
+import error from '../error';
 
 class parserDmeden extends parserBase {
 	constructor() {
@@ -26,7 +27,9 @@ class parserDmeden extends parserBase {
 			};
 			comicList.push(comic);
 		}
-		return comicList;
+
+		if(comicList.length ===0) throw new error.parserError('no content');
+		else return comicList;
 	}
 
 	getNextPage($) {
@@ -38,13 +41,13 @@ class parserDmeden extends parserBase {
 		for(let i = 0; i < elements.length ; i++) {
 			if(elements[i].children[0].data.indexOf('下一') !== -1) {
 				if(elements[i].attribs.href === undefined)
-					return null;
+					throw new error.parserError('no next');
 				else
 					return baseUrl + elements[i].attribs.href;
 			}
 		}
 
-		return null;
+		throw new error.parserError('no next');
 	}
 }
 
