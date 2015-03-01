@@ -49,7 +49,7 @@ class comicIndexer {
 			this.comicDb[type].createReadStream()
 			.on('data', (data) => {
 				let comic = {};
-				if(data.key.indexOf(searchTerm) !== -1) {
+				if(data.key.includes(searchTerm)) {
 					comic.name = data.key;
 					comic.url = data.value;
 					searchResult.push(comic);

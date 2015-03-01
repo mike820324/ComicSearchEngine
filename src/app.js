@@ -26,16 +26,16 @@ let index = (err, comicList) => {
 		
 		// @fixme
 		// not a good pattern
-		if(url.indexOf('comicvip') !== -1)
+		if(url.includes('comicvip'))
 			comicIndexer.add('comicvip', comicList);
 
-		else if(url.indexOf('99770') !== -1)
+		else if(url.includes('99770'))
 			comicIndexer.add('99770', comicList);
 		
-		else if(url.indexOf('99comic') !== -1)
+		else if(url.includes('99comic'))
 			comicIndexer.add('99comic', comicList);
 
-		else if(url.indexOf('dmeden') !== -1)
+		else if(url.includes('dmeden'))
 			comicIndexer.add('dmeden', comicList);
 
 		else

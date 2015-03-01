@@ -16,7 +16,7 @@ class crawler {
 		this.baseUrl = baseUrl;
 		
 		for(let parser of Parser.supportParser) {
-			if(this.baseUrl.indexOf(parser.url) !== -1) {
+			if(this.baseUrl.includes(parser.url)) {
 				this.parser = parser.parser;
 			}
 		}
@@ -51,6 +51,7 @@ class crawler {
 		console.log('crawling ' + url);
 		Request.get({url: url, encoding: null}, (err, resp, body) => {
 			if(err) {
+				console.log('network error');
 				this.limiter = setTimeout(() =>{
 					this.crawl(url, cb);
 				}, this.delayTime * 5);
@@ -72,6 +73,7 @@ class crawler {
 				} 
 				catch(e) {
 					if(e instanceof error.parserError) {
+						console.log('parsing error happened');
 						if(e.message === 'no next') {
 							this.stop();
 						} else if(e.message === 'no content') {

@@ -38,7 +38,7 @@ class parser99comic extends parserBase {
 		let elements = $(selector);
 
 		for(let i = 0; i < elements.length ; i++) {
-			if(elements[i].children[0].data.indexOf('下一') !== -1) {
+			if(elements[i].children[0].data.includes('下一')) {
 					return baseUrl + elements[i].attribs.href;
 			}
 		}

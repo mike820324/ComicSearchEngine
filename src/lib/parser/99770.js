@@ -37,7 +37,7 @@ class parser99770 extends parserBase {
 		let elements = $(selector);
 
 		for(let i = 0; i < elements.length ; i++) {
-			if(elements[i].children[0].data.indexOf('下一') !== -1) {
+			if(elements[i].children[0].data.includes('下一')) {
 					if(elements[i].attribs.href === undefined)
 						return null;
 					else
