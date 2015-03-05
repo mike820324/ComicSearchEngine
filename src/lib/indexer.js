@@ -3,10 +3,20 @@ import Sublevel from 'level-sublevel';
 import Promise from 'bluebird';
 
 import Opencc from 'opencc';
+import winston from 'winston';
+
 let opencc = new Opencc('tw2s.json');
 
 class comicIndexer {
     constructor(dbPath) {
+        this.logger = new winston.Logger({
+            transports: [
+                new winston.transports.Console({
+                    'timestamp': true,
+                    'colorize': true
+                }),
+            ],
+        });
         this.db = Sublevel(Levelup(dbPath));
 
         // register sublevel
@@ -33,8 +43,9 @@ class comicIndexer {
         
         // write to the correct sublevel db
         try {
+            this.logger.log('info', '%s indexing', type);
             this.comicDb[type].batch(ops, err => {
-                if(err) console.log(err);
+                if(err) this.logger.log('error', err);
             });
         } catch(TypeError) {
             console.log('no such kind of db');

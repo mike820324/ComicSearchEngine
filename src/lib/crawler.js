@@ -5,12 +5,12 @@ import Url from 'url';
 // encode normalize
 import charset from 'charset';
 import iconv from 'iconv-lite';
+import winston from 'winston';
 import Opencc from 'opencc';
 const opencc = new Opencc('tw2s.json');
 
 import Parser from './parser';
 import error from './error';
-import winston from 'winston';
 
 // do not use this class directly, extend it
 class crawler {
@@ -18,7 +18,8 @@ class crawler {
         this.logger = new winston.Logger({
             transports: [
                 new winston.transports.Console({
-                    'timestamp': true
+                    'timestamp': true,
+                    'colorize': true
                 }),
             ]
         });

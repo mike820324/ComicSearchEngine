@@ -5,6 +5,16 @@ import Url from 'url';
 import Opencc from 'opencc';
 const opencc = new Opencc('tw2s.json');
 
+import winston from 'winston';
+
+let appLogger = new winston.Logger({
+    transports: [
+        new winston.transports.Console({
+            'timestamp': true,
+            'colorize': true
+        }),
+    ],
+});
 let comicIndexer = new Indexer('./newdb');
 
 let initLinks = [
@@ -21,7 +31,7 @@ let crawlers = initLinks.map(initLink => {
 
 
 let index = (err, comicList) => {
-    if(err) console.log(err);
+    if(err) appLogger.log('error', err);
     else {
         let hostname = Url.parse(comicList[0].url).hostname;
         
@@ -40,7 +50,7 @@ let index = (err, comicList) => {
             comicIndexer.add('dmeden', comicList);
 
         else
-            console.log('can not find the proper indexer');
+            appLogger.log('error', 'can not find the proper indexer');
     }
 };
 
