@@ -15,7 +15,7 @@ import error from './error';
 class crawler {
     constructor(baseUrl, delayTime){
         this.baseUrl = baseUrl;
-        let hostname = Url.parse(this.baseUrl); 
+        let hostname = Url.parse(this.baseUrl).hostname; 
         for(let parser of Parser.supportParser) {
             if(hostname.includes(parser.url)) {
                 this.parser = parser.parser;
