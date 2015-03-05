@@ -1,6 +1,6 @@
 {
   "name": "ComicSearchEngine",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "node base search engine for comic",
   "main": "app.js",
   "scripts": {
