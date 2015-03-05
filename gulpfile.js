@@ -5,9 +5,8 @@ var srcFolder = 'src/**/*.js';
 var destFolder = 'dist';
 
 gulp.task('build', function() {
-	return gulp.src(srcFolder)
-	.pipe(babel())
-	.pipe(gulp.dest(destFolder));
+    return gulp.src(srcFolder)
+    .pipe(babel())
+    .pipe(gulp.dest(destFolder));
 });
-
 

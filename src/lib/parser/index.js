@@ -7,10 +7,10 @@ import parser99770 from './99770';
 let parserList = [parserComicvip, parserDmeden, parser99comic, parser99770];
 
 let supportParser = parserList.map(parser => {
-	return {
-			parser: parser,
-			url: parser.url
-	};
+    return {
+            parser: parser,
+            url: parser.url
+    };
 });
 
 module.exports.supportParser = supportParser;
