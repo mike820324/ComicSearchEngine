@@ -17,15 +17,18 @@
   "author": "Rueimin Jiang",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^2.9.13",
     "charset": "^1.0.0",
     "iconv-lite": "^0.4.7",
     "level-sublevel": "^6.4.6",
+    "level-update": "^0.1.0",
     "leveldown": "^0.10.4",
     "levelup": "^0.19.0",
     "map-reduce": "^6.0.2",
     "nodejieba": "git://github.com/mike820324/nodejieba",
     "opencc": "git://github.com/BYVoid/OpenCC",
     "request": "^2.53.0",
+    "scws": "git://github.com/mike820324/nodescws",
     "whacko": "^0.17.3"
   },
   "devDependencies": {
