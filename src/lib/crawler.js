@@ -104,6 +104,7 @@ class crawler {
                         }
                     } else {
                         console.log('unknown exception => ' + e.message);
+                        console.log(e.stack);
                     }
                 }
             }

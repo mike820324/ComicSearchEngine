@@ -1,4 +1,5 @@
 import parserBase from './base';
+import error from '../error';
 
 class parserComicvip extends parserBase {
     constructor() {
@@ -7,7 +8,7 @@ class parserComicvip extends parserBase {
 
     getElement($) {
         const cssSelector = 'body > table:nth-child(5) > tbody > tr > td:nth-child(3) > table:nth-child(2) > tbody a';
-        const baseUrl = 'www.comicvip.com';
+        const baseUrl = 'http://www.comicvip.com';
 
         let elements =  $(cssSelector);
 
@@ -21,11 +22,12 @@ class parserComicvip extends parserBase {
             comicList.push(comic);
         }
 
-        return comicList;
+        if(comicList.length ===0) throw new error.parserError('no content');
+        else return comicList;
     }
     
     getNextPage($) {
-        return null;    
+        throw new error.parserError('no next');
     }
 }
 

@@ -27,7 +27,9 @@ class parser99comic extends parserBase {
             };
             comicList.push(comic);
         }
-        return comicList;
+
+        if(comicList.length ===0) throw new error.parserError('no content');
+        else return comicList;
     }
 
     getNextPage($) {
@@ -42,7 +44,8 @@ class parser99comic extends parserBase {
                     return baseUrl + elements[i].attribs.href;
             }
         }
-        return null;
+
+        throw new error.parserError('no next');
     }
 }
 
