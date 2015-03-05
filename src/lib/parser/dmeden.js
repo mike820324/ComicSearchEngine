@@ -43,7 +43,6 @@ class parserDmeden extends parserBase {
                 if(elements[i].attribs.href === undefined)
                     throw new error.parserError('no next');
                 else {
-                    console.log(elements[i].attribs.href);
                     return baseUrl + elements[i].attribs.href;
                 }
             }
