@@ -1,5 +1,6 @@
 import Request from 'request';
 import whacko from 'whacko';
+import Url from 'url';
 
 // encode normalize
 import charset from 'charset';
@@ -14,9 +15,9 @@ import error from './error';
 class crawler {
     constructor(baseUrl, delayTime){
         this.baseUrl = baseUrl;
-        
+        let hostname = Url.parse(this.baseUrl); 
         for(let parser of Parser.supportParser) {
-            if(this.baseUrl.includes(parser.url)) {
+            if(hostname.includes(parser.url)) {
                 this.parser = parser.parser;
             }
         }

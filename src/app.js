@@ -1,6 +1,7 @@
 import crawler from './lib/crawler';
 import Indexer from './lib/indexer';
 
+import Url from 'url';
 import Opencc from 'opencc';
 const opencc = new Opencc('tw2s.json');
 
@@ -22,20 +23,20 @@ let crawlers = initLinks.map(initLink => {
 let index = (err, comicList) => {
     if(err) console.log(err);
     else {
-        let url = comicList[0].url;
+        let hostname = Url.parse(comicList[0].url).hostname;
         
         // @fixme
         // not a good pattern
-        if(url.includes('comicvip'))
+        if(hostname.includes('comicvip'))
             comicIndexer.add('comicvip', comicList);
 
-        else if(url.includes('99770'))
+        else if(hostname.includes('99770'))
             comicIndexer.add('99770', comicList);
         
-        else if(url.includes('99comic'))
+        else if(hostname.includes('99comic'))
             comicIndexer.add('99comic', comicList);
 
-        else if(url.includes('dmeden'))
+        else if(hostname.includes('dmeden'))
             comicIndexer.add('dmeden', comicList);
 
         else
