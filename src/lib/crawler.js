@@ -10,10 +10,19 @@ const opencc = new Opencc('tw2s.json');
 
 import Parser from './parser';
 import error from './error';
+import winston from 'winston';
 
 // do not use this class directly, extend it
 class crawler {
     constructor(baseUrl, delayTime){
+        this.logger = new winston.Logger({
+            transports: [
+                new winston.transports.Console({
+                    'timestamp': true
+                }),
+            ]
+        });
+
         this.baseUrl = baseUrl;
         let hostname = Url.parse(this.baseUrl).hostname; 
         for(let parser of Parser.supportParser) {
@@ -23,7 +32,7 @@ class crawler {
         }
 
         if(this.parser === undefined) 
-            console.log('not supported');
+            this.logger.log('error', 'unsupported parser %s', hostname);
 
         this.urlList = [];
 
@@ -67,14 +76,10 @@ class crawler {
     // crawl one page
     // get the data
     crawl(url, cb) {
-        console.log('crawling ' + url);
+        this.logger.log('info', 'crawling %s', url);
         Request.get({url: url, encoding: null}, (err, resp, body) => {
             if(err) {
                 this.handleError('network', url);
-                //console.log('network error');
-                //this.limiter = setTimeout(() =>{
-                //    this.crawl(url, cb);
-                //}, this.delayTime * 5);
             } else {
                 let response = {headers: resp.headers, body: body};
                 let $ = this.parseHtml(response);
@@ -93,18 +98,15 @@ class crawler {
                 } 
                 catch(e) {
                     if(e instanceof error.parserError) {
-                        console.log('parsing error happened');
                         if(e.message === 'no next') {
                             this.handleError(e.message);
                         } else if(e.message === 'no content') {
+                            this.logger.log('error', 'parsing error happened');
                             this.handleError(e.message, url);
-                            //this.limiter = setTimeout(() =>{
-                            //    this.crawl(url, cb);
-                            //}, this.delayTime * 5);
                         }
                     } else {
-                        console.log('unknown exception => ' + e.message);
-                        console.log(e.stack);
+                        this.logger.log('error', 'unknown exception => %s' + e.message);
+                        this.logger.log('debug', e.stack);
                     }
                 }
             }
@@ -113,7 +115,7 @@ class crawler {
     
     // start crawling the page
     start(cb) {
-        console.log('start crawler with ' + this.baseUrl);
+        this.logger.log('info', 'start crawler with %s', this.baseUrl);
 
         this.limiter = setTimeout(()=>{
             this.crawl(this.baseUrl, cb);
@@ -122,7 +124,7 @@ class crawler {
 
     // stop crawling
     stop() {
-        console.log('stop crawler');
+        this.logger.log('info', 'stop crawler');
         clearTimeout(this.limiter);
     }
 }

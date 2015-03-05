@@ -29,7 +29,8 @@
     "opencc": "git://github.com/BYVoid/OpenCC",
     "request": "^2.53.0",
     "scws": "git://github.com/mike820324/nodescws",
-    "whacko": "^0.17.3"
+    "whacko": "^0.17.3",
+    "winston": "^0.9.0"
   },
   "devDependencies": {
     "gulp": "^3.8.11",
