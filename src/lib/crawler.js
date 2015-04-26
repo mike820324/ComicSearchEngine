@@ -56,7 +56,7 @@ class crawler {
         return $;
     }
 
-    handleError(errorType, url)    {
+    handleError(errorType, url, cb)    {
         if(errorType === 'network') {
             this.limiter = setTimeout(() =>{
                 this.crawl(url, cb);
@@ -80,7 +80,7 @@ class crawler {
         this.logger.log('info', 'crawling %s', url);
         Request.get({url: url, encoding: null}, (err, resp, body) => {
             if(err) {
-                this.handleError('network', url);
+                this.handleError('network', url, cb);
             } else {
                 let response = {headers: resp.headers, body: body};
                 let $ = this.parseHtml(response);
@@ -103,7 +103,7 @@ class crawler {
                             this.handleError(e.message);
                         } else if(e.message === 'no content') {
                             this.logger.log('error', 'parsing error happened');
-                            this.handleError(e.message, url);
+                            this.handleError(e.message, url, cb);
                         }
                     } else {
                         this.logger.log('error', 'unknown exception => %s' + e.message);
